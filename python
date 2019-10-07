@@ -1,0 +1,27 @@
+import time
+import serial
+import RPi.GPIO as GPIO
+import binascii
+import datetime
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(15,GPIO.OUT)
+
+print("welcome")
+ser= serial.Serial(port='/dev/serial1' ,baudrate=9600, parity=serial.PARITY_NONE, timeout=2)
+time.sleep(2)
+while(True):
+    x = ser.read()
+    x = binascii.hexlify(x).decode('utf-8') 
+    
+    print(x)
+        
+    if x != "00":
+        GPIO.output(15,True)
+        print(x)
+        #print("On")
+        
+   # else:
+      #  GPIO.output(15,False)
+      #  print("Off")
